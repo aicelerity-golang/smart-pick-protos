@@ -1,7 +1,7 @@
 
 syntax = "proto3";
-package magna.smartpick.emh.v1;
-option go_package = "magna/smartpick/emh/v1;emh";
+package proto.smartpick.emh.v1;
+option go_package = "smartpick/emh/v1;emh";
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 service MetricsService {
