@@ -1,0 +1,133 @@
+
+syntax = "proto3";
+package magna.smartpick.emh.v1;
+option go_package = "magna/smartpick/emh/v1;emh";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+service MetricsService {
+// All metrics: KPIs, tables, timeseries
+rpc GetMetrics (GetMetricsRequest) returns (GetMetricsResponse) {
+option (google.api.http) = {
+post: "/v1"
+body: "*"
+};
+}
+// CSV export for metrics (tables only)
+rpc ExportMetricsCsv (ExportMetricsCsvRequest) returns (ExportMetricsCsvResponse) {
+option (google.api.http) = {
+post: "/v1/csv"
+body: "*"
+};
+}
+}
+// ----------------------------------------
+// Comparison definitions
+// ----------------------------------------
+enum DeltaComparisonType {
+// Default
+DELTA_COMPARISON_TYPE_UNSPECIFIED = 0;
+// Compare to the previous range
+// Ex 1
+// Current: [10/01/2025 00:00:00, 10/01/2025 10:30:00]
+// Previous: [09/30/2025 00:00:00, 09/30/20205 10:30:00]
+// Ex 2
+// Current: [10/01/2025 00:00:00, 10/02/2025 10:30:00]
+// Previous: [09/29/2025 00:00:00, 09/30/20205 10:30:00]
+DELTA_COMPARISON_TYPE_PREVIOUS = 1;
+// Compare to the previou 7 day average
+DELTA_COMPARISON_TYPE_SEVEN_DAY_AVG = 2;
+}
+// ----------------------------------------
+// KPI definitions (scalar values)
+// ----------------------------------------
+enum KpiType {
+KPI_TYPE_UNSPECIFIED = 0;
+KPI_TYPE_TOTAL_TASKS_COMPLETED = 1;
+KPI_TYPE_TOTAL_TASKS_MERGED = 2;
+KPI_TYPE_TOTAL_TASKS_CANCELED = 3;
+KPI_TYPE_COMPLETED_RATIO = 4;
+KPI_TYPE_NUM_DRIVERS = 5;
+KPI_TYPE_NUM_FORKLIFTS = 6;
+}
+message KpiValue {
+KpiType type = 1;
+double value = 2;
+double delta = 3;
+string display_unit = 4;
+}
+// ----------------------------------------
+// Table definitions (breakdowns)
+// ----------------------------------------
+enum TableType {
+TABLE_TYPE_UNSPECIFIED = 0;
+TABLE_TYPE_TASKS_BY_DRIVER = 1;
+TABLE_TYPE_TASKS_BY_DEPARTMENT = 2;
+TABLE_TYPE_TASKS_BY_FORKLIFT = 3;
+}
+message Cell {
+string value = 1;
+string delta = 2;
+}
+message Row {
+repeated Cell cells = 1;
+}
+message Table {
+TableType type = 1;
+repeated string columns = 2;
+repeated Row rows = 3;
+}
+// ----------------------------------------
+// Timeseries definitions
+// ----------------------------------------
+enum TimeseriesType {
+TIMESERIES_TYPE_UNSPECIFIED = 0;
+TIMESERIES_TYPE_UTILIZATION = 1;
+TIMESERIES_TYPE_TASK_STATUS = 2;
+}
+enum Aggregation {
+AGGREGATION_UNSPECIFIED = 0;
+AGGREGATION_AVG = 1;
+AGGREGATION_SUM = 2;
+AGGREGATION_P50 = 3;
+AGGREGATION_P90 = 4;
+AGGREGATION_P99 = 5;
+}
+message DataPoint {
+google.protobuf.Timestamp timestamp = 1;
+double value = 2;
+}
+message Timeseries {
+TimeseriesType type = 1;
+string series_name = 2;
+repeated DataPoint points = 3;
+Aggregation aggregation = 4;
+}
+// ----------------------------------------
+// Requests / Responses
+// ----------------------------------------
+message GetMetricsRequest {
+google.protobuf.Timestamp start_time = 1;
+google.protobuf.Timestamp end_time = 2;
+// what to include in the response
+bool include_kpis = 3;
+repeated TableType include_tables = 4;
+repeated TimeseriesType include_timeseries = 5;
+// bucket size for timeseries (e.g. 60s, 3600s). Ignored if
+// no timeseries are included.
+int32 resolution_seconds = 6;
+DeltaComparisonType comparison_type = 7;
+}
+message GetMetricsResponse {
+repeated KpiValue kpis = 1;
+repeated Table tables = 2;
+repeated Timeseries timeseries = 3;
+}
+message ExportMetricsCsvRequest {
+TableType table = 1;
+google.protobuf.Timestamp start_time = 2;
+google.protobuf.Timestamp end_time = 3;
+}
+message ExportMetricsCsvResponse {
+bytes content = 1;
+string filename = 2;
+}
