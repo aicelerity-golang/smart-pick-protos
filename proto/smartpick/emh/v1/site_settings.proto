@@ -1,0 +1,66 @@
+
+syntax = "proto3";
+
+package proto.smartpick.emh.v1;
+option go_package = "smartpick/emh/v1;emh";
+
+import "google/api/annotations.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+// SiteSettingsService provides settings/configurations for EMH
+service SiteSettingsService {
+  // Get site settings (partial get with field mask)
+  rpc GetSiteSettings(GetSiteSettingsRequest) returns (GetSiteSettingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/sites/{site_id}"
+    };
+  }
+
+  // Updates site settings (partial update with field mask)
+  rpc UpdateSiteSettings(UpdateSiteSettingsRequest) returns (UpdateSiteSettingsResponse) {
+    option (google.api.http) = {
+      patch: "/v1/sites/{site_id}"
+      body: "settings"
+    };
+  }
+}
+
+message GetSiteSettingsRequest {
+  string site_id = 1;
+
+  // Fields to include in the response
+  google.protobuf.FieldMask read_mask = 2;
+}
+
+message GetSiteSettingsResponse {
+  SiteSettings settings = 1;
+  google.protobuf.FieldMask read_mask = 2;
+}
+
+message UpdateSiteSettingsRequest {
+  string site_id = 1;
+
+  // Fields to update
+  google.protobuf.FieldMask update_mask = 2;
+
+  SiteSettings settings = 3;
+}
+
+message UpdateSiteSettingsResponse {
+  SiteSettings settings = 1;
+}
+
+message SiteSettings {
+  string site_id = 1;
+  google.protobuf.Timestamp last_updated = 2;
+  string timezone = 3;
+  repeated SiteShift shifts = 4;
+}
+
+message SiteShift {
+  string name = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+}
+

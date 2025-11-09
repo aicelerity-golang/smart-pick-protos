@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto.smartpick.emh.v1;
+option go_package = "smartpick/emh/v1;emh";
+
+import "google/api/annotations.proto";
+
+// HealthService provides a simple health check endpoint.
+service HealthService {
+  // Check reports the health status of the service.
+  rpc Check(CheckRequest) returns (CheckResponse) {
+    option (google.api.http) = {
+      get: "/v1/health"
+    };
+  }
+}
+
+message CheckRequest {}
+
+message CheckResponse {
+  string status = 1;
+}
+
+
