@@ -1,8 +1,8 @@
 module github.com/aicelerity-golang/smart-pick-protos
 
-go 1.24.0
+go 1.23.0
 
-toolchain go1.24.10
+toolchain go1.23.0
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
