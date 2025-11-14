@@ -97,18 +97,28 @@ const (
 	KpiType_KPI_TYPE_COMPLETED_RATIO       KpiType = 4
 	KpiType_KPI_TYPE_NUM_DRIVERS           KpiType = 5
 	KpiType_KPI_TYPE_NUM_FORKLIFTS         KpiType = 6
+	KpiType_KPI_TYPE_TOTAL_TASKS           KpiType = 7
+	KpiType_KPI_TYPE_TASK_UTILIZATION      KpiType = 8
+	KpiType_KPI_TYPE_REALISTIC_TASK_TIME   KpiType = 9
+	KpiType_KPI_TYPE_APP_LOGIN             KpiType = 10
+	KpiType_KPI_TYPE_APP_TIME              KpiType = 11
 )
 
 // Enum value maps for KpiType.
 var (
 	KpiType_name = map[int32]string{
-		0: "KPI_TYPE_UNSPECIFIED",
-		1: "KPI_TYPE_TOTAL_TASKS_COMPLETED",
-		2: "KPI_TYPE_TOTAL_TASKS_MERGED",
-		3: "KPI_TYPE_TOTAL_TASKS_CANCELED",
-		4: "KPI_TYPE_COMPLETED_RATIO",
-		5: "KPI_TYPE_NUM_DRIVERS",
-		6: "KPI_TYPE_NUM_FORKLIFTS",
+		0:  "KPI_TYPE_UNSPECIFIED",
+		1:  "KPI_TYPE_TOTAL_TASKS_COMPLETED",
+		2:  "KPI_TYPE_TOTAL_TASKS_MERGED",
+		3:  "KPI_TYPE_TOTAL_TASKS_CANCELED",
+		4:  "KPI_TYPE_COMPLETED_RATIO",
+		5:  "KPI_TYPE_NUM_DRIVERS",
+		6:  "KPI_TYPE_NUM_FORKLIFTS",
+		7:  "KPI_TYPE_TOTAL_TASKS",
+		8:  "KPI_TYPE_TASK_UTILIZATION",
+		9:  "KPI_TYPE_REALISTIC_TASK_TIME",
+		10: "KPI_TYPE_APP_LOGIN",
+		11: "KPI_TYPE_APP_TIME",
 	}
 	KpiType_value = map[string]int32{
 		"KPI_TYPE_UNSPECIFIED":           0,
@@ -118,6 +128,11 @@ var (
 		"KPI_TYPE_COMPLETED_RATIO":       4,
 		"KPI_TYPE_NUM_DRIVERS":           5,
 		"KPI_TYPE_NUM_FORKLIFTS":         6,
+		"KPI_TYPE_TOTAL_TASKS":           7,
+		"KPI_TYPE_TASK_UTILIZATION":      8,
+		"KPI_TYPE_REALISTIC_TASK_TIME":   9,
+		"KPI_TYPE_APP_LOGIN":             10,
+		"KPI_TYPE_APP_TIME":              11,
 	}
 )
 
@@ -982,7 +997,7 @@ const file_proto_smartpick_emh_v1_metrics_proto_rawDesc = "" +
 	"\x13DeltaComparisonType\x12%\n" +
 	"!DELTA_COMPARISON_TYPE_UNSPECIFIED\x10\x00\x12\"\n" +
 	"\x1eDELTA_COMPARISON_TYPE_PREVIOUS\x10\x01\x12'\n" +
-	"#DELTA_COMPARISON_TYPE_SEVEN_DAY_AVG\x10\x02*\xdf\x01\n" +
+	"#DELTA_COMPARISON_TYPE_SEVEN_DAY_AVG\x10\x02*\xe9\x02\n" +
 	"\aKpiType\x12\x18\n" +
 	"\x14KPI_TYPE_UNSPECIFIED\x10\x00\x12\"\n" +
 	"\x1eKPI_TYPE_TOTAL_TASKS_COMPLETED\x10\x01\x12\x1f\n" +
@@ -990,7 +1005,13 @@ const file_proto_smartpick_emh_v1_metrics_proto_rawDesc = "" +
 	"\x1dKPI_TYPE_TOTAL_TASKS_CANCELED\x10\x03\x12\x1c\n" +
 	"\x18KPI_TYPE_COMPLETED_RATIO\x10\x04\x12\x18\n" +
 	"\x14KPI_TYPE_NUM_DRIVERS\x10\x05\x12\x1a\n" +
-	"\x16KPI_TYPE_NUM_FORKLIFTS\x10\x06*\x8d\x01\n" +
+	"\x16KPI_TYPE_NUM_FORKLIFTS\x10\x06\x12\x18\n" +
+	"\x14KPI_TYPE_TOTAL_TASKS\x10\a\x12\x1d\n" +
+	"\x19KPI_TYPE_TASK_UTILIZATION\x10\b\x12 \n" +
+	"\x1cKPI_TYPE_REALISTIC_TASK_TIME\x10\t\x12\x16\n" +
+	"\x12KPI_TYPE_APP_LOGIN\x10\n" +
+	"\x12\x15\n" +
+	"\x11KPI_TYPE_APP_TIME\x10\v*\x8d\x01\n" +
 	"\tTableType\x12\x1a\n" +
 	"\x16TABLE_TYPE_UNSPECIFIED\x10\x00\x12\x1e\n" +
 	"\x1aTABLE_TYPE_TASKS_BY_DRIVER\x10\x01\x12\"\n" +

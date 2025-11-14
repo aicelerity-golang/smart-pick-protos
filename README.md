@@ -1,7 +1,7 @@
 ## Readme
 
 ```bash
-buf generategit
+buf generate
 
  git tag -a v0.1.5 -m "v0.1.5 release"
 
