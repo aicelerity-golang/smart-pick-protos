@@ -224,9 +224,12 @@ func (TableType) EnumDescriptor() ([]byte, []int) {
 type TimeseriesType int32
 
 const (
-	TimeseriesType_TIMESERIES_TYPE_UNSPECIFIED TimeseriesType = 0
-	TimeseriesType_TIMESERIES_TYPE_UTILIZATION TimeseriesType = 1
-	TimeseriesType_TIMESERIES_TYPE_TASK_STATUS TimeseriesType = 2
+	TimeseriesType_TIMESERIES_TYPE_UNSPECIFIED         TimeseriesType = 0
+	TimeseriesType_TIMESERIES_TYPE_UTILIZATION         TimeseriesType = 1
+	TimeseriesType_TIMESERIES_TYPE_TASK_STATUS         TimeseriesType = 2
+	TimeseriesType_TIMESERIES_TYPE_REALISTIC_TASK_TIME TimeseriesType = 3
+	TimeseriesType_TIMESERIES_TYPE_APP_LOGIN           TimeseriesType = 4
+	TimeseriesType_TIMESERIES_TYPE_APP_TIME            TimeseriesType = 5
 )
 
 // Enum value maps for TimeseriesType.
@@ -235,11 +238,17 @@ var (
 		0: "TIMESERIES_TYPE_UNSPECIFIED",
 		1: "TIMESERIES_TYPE_UTILIZATION",
 		2: "TIMESERIES_TYPE_TASK_STATUS",
+		3: "TIMESERIES_TYPE_REALISTIC_TASK_TIME",
+		4: "TIMESERIES_TYPE_APP_LOGIN",
+		5: "TIMESERIES_TYPE_APP_TIME",
 	}
 	TimeseriesType_value = map[string]int32{
-		"TIMESERIES_TYPE_UNSPECIFIED": 0,
-		"TIMESERIES_TYPE_UTILIZATION": 1,
-		"TIMESERIES_TYPE_TASK_STATUS": 2,
+		"TIMESERIES_TYPE_UNSPECIFIED":         0,
+		"TIMESERIES_TYPE_UTILIZATION":         1,
+		"TIMESERIES_TYPE_TASK_STATUS":         2,
+		"TIMESERIES_TYPE_REALISTIC_TASK_TIME": 3,
+		"TIMESERIES_TYPE_APP_LOGIN":           4,
+		"TIMESERIES_TYPE_APP_TIME":            5,
 	}
 )
 
@@ -1016,11 +1025,14 @@ const file_proto_smartpick_emh_v1_metrics_proto_rawDesc = "" +
 	"\x16TABLE_TYPE_UNSPECIFIED\x10\x00\x12\x1e\n" +
 	"\x1aTABLE_TYPE_TASKS_BY_DRIVER\x10\x01\x12\"\n" +
 	"\x1eTABLE_TYPE_TASKS_BY_DEPARTMENT\x10\x02\x12 \n" +
-	"\x1cTABLE_TYPE_TASKS_BY_FORKLIFT\x10\x03*s\n" +
+	"\x1cTABLE_TYPE_TASKS_BY_FORKLIFT\x10\x03*\xd9\x01\n" +
 	"\x0eTimeseriesType\x12\x1f\n" +
 	"\x1bTIMESERIES_TYPE_UNSPECIFIED\x10\x00\x12\x1f\n" +
 	"\x1bTIMESERIES_TYPE_UTILIZATION\x10\x01\x12\x1f\n" +
-	"\x1bTIMESERIES_TYPE_TASK_STATUS\x10\x02*\x93\x01\n" +
+	"\x1bTIMESERIES_TYPE_TASK_STATUS\x10\x02\x12'\n" +
+	"#TIMESERIES_TYPE_REALISTIC_TASK_TIME\x10\x03\x12\x1d\n" +
+	"\x19TIMESERIES_TYPE_APP_LOGIN\x10\x04\x12\x1c\n" +
+	"\x18TIMESERIES_TYPE_APP_TIME\x10\x05*\x93\x01\n" +
 	"\vAggregation\x12\x1b\n" +
 	"\x17AGGREGATION_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fAGGREGATION_AVG\x10\x01\x12\x13\n" +
